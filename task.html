@@ -9,24 +9,45 @@
   </head>
   <body>
     <script>
-      class person {
-        constructor(name, age, gender, number) {
-          this.name = name;
-          this.age = age;
-          this.gender = gender;
-          this.number = number;
-        }
-        personDetails() {
-          console.log(`myname is :${this.name}`);
-          console.log(`my age is :${this.age}`);
-          console.log(`my geneder is :${this.gender}`);
-          console.log(`my number is :${this.number}`);
-        }
-      }
-      let ps = new person("bob", 22, "male", 12345);
-      ps.personDetails();
+     class Person {
+    constructor(name, age, email) {
+        this.name = name;
+        this.age = age;
+        this.email = email;
+    }
+
+    
+    displayInfo() {
+        console.log(`Name: ${this.name}, Age: ${this.age}, Email: ${this.email}`);
+    }
+
+    
+    updateEmail(newEmail) {
+        this.email = newEmail;
+        console.log(`Email updated to: ${this.email}`);
+    }
+
+    
+    static validateEmail(email) {
+        const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        return regex.test(email);
+    }
+}
+
+
+let person1 = new Person('Alice', 30, 'alice@example.com');
+person1.displayInfo();
+person1.updateEmail('alice_new@example.com');
+
+
+if (Person.validateEmail('test@example.com')) {
+    console.log('Email is valid');
+} else {
+    console.log('Email is invalid');
+}
+
     </script>
   </body>
 </html>
 
-//output myname is :bob my age is :22 my geneder is :male my number is :12345
+
