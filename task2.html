@@ -9,26 +9,36 @@
   </head>
   <body>
     <script>
-      class uber {
-        constructor(km) {
-          this.km = km;
-          this.price = km * 3;
+     class UberPricing {
+        constructor(baseFare, costPerMinute, costPerMile, bookingFee) {
+          this.baseFare = baseFare;
+          this.costPerMinute = costPerMinute;
+          this.costPerMile = costPerMile;
+          this.bookingFee = bookingFee;
         }
-        getPrice() {
-          console.log(`Ride cost is : ${this.price}`);
+
+        calculatePrice(durationInMinutes, distanceInMiles) {
+          const timeCharge = this.costPerMinute * durationInMinutes;
+          const distanceCharge = this.costPerMile * distanceInMiles;
+          const totalCost =
+            this.baseFare + timeCharge + distanceCharge + this.bookingFee;
+          return totalCost.toFixed(2);
         }
-        applyDiscount() {
-          console.log("Discount calculations");
-          let discount = (25 / this.price) * 100;
-          let priceAfterDiscount = this.price - discount;
-          console.log(
-            `As a priveliged customer, i got discount after ride :${priceAfterDiscount.toFixed()}`
-          );
+
+        static applySurgePricing(price, surgeFactor) {
+          return (price * surgeFactor).toFixed(2);
         }
       }
-      let rider = new uber(20);
-      rider.getPrice();
-      rider.applyDiscount();
+
+      let uberRide = new UberPricing(2.0, 0.2, 1.15, 1.5); // Example fares
+      let normalPrice = uberRide.calculatePrice(30, 5); // 30 minutes and 5 miles
+      console.log(`Normal Price: $${normalPrice}`);
+
+      let surgePrice = UberPricing.applySurgePricing(
+        parseFloat(normalPrice),
+        1.5
+      );
+      console.log(`Surge Price: $${surgePrice}`);
     </script>
   </body>
 </html>
