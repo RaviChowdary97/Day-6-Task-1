@@ -9,48 +9,60 @@
   </head>
   <body>
     <script>
-     class Person {
-    constructor(name, age, email) {
+    class Person {
+    constructor(name, age, address) {
         this.name = name;
         this.age = age;
-        this.email = email;
+        this.address = address;
+    }
+
+    // Method to get the person's name
+    getName() {
+        return this.name;
+    }
+
+    setName(name) {
+        this.name = name;
     }
 
     
-    displayInfo() {
-        console.log(`Name: ${this.name}, Age: ${this.age}, Email: ${this.email}`);
+    getAge() {
+        return this.age;
+    }
+
+  
+    setAge(age) {
+        this.age = age;
     }
 
     
-    updateEmail(newEmail) {
-        this.email = newEmail;
-        console.log(`Email updated to: ${this.email}`);
+    getAddress() {
+        return this.address;
+    }
+
+   
+    setAddress(address) {
+        this.address = address;
     }
 
     
-    static validateEmail(email) {
-        const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-        return regex.test(email);
+    displayDetails() {
+        return `Name: ${this.name}, Age: ${this.age}, Address: ${this.address}`;
     }
 }
 
 
-let person1 = new Person('Alice', 30, 'alice@example.com');
-person1.displayInfo();
-person1.updateEmail('alice_new@example.com');
+const person1 = new Person('John Doe', 30, '123 Main St, Anytown, USA');
+console.log(person1.displayDetails()); 
 
+person1.setName('Jane Doe');
+person1.setAge(25);
+person1.setAddress('456 Elm St, Othertown, USA');
+console.log(person1.displayDetails()); 
 
-if (Person.validateEmail('test@example.com')) {
-    console.log('Email is valid');
-} else {
-    console.log('Email is invalid');
-}
 
     </script>
   </body>
 </html>
+// Output: Name: Jane Doe, Age: 25, Address: 456 Elm St, Othertown, USA
 
-//output is 
-Name: Alice, Age: 30, Email: alice@example.com
-task.html:27 Email updated to: alice_new@example.com
-task.html:44 Email is valid
