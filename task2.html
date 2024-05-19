@@ -9,40 +9,47 @@
   </head>
   <body>
     <script>
-     class UberPricing {
-        constructor(baseFare, costPerMinute, costPerMile, bookingFee) {
-          this.baseFare = baseFare;
-          this.costPerMinute = costPerMinute;
-          this.costPerMile = costPerMile;
-          this.bookingFee = bookingFee;
-        }
+    class UberPriceCalculator {
+    constructor(baseFare, costPerMile, costPerMinute) {
+        this.baseFare = baseFare;
+        this.costPerMile = costPerMile;
+        this.costPerMinute = costPerMinute;
+    }
 
-        calculatePrice(durationInMinutes, distanceInMiles) {
-          const timeCharge = this.costPerMinute * durationInMinutes;
-          const distanceCharge = this.costPerMile * distanceInMiles;
-          const totalCost =
-            this.baseFare + timeCharge + distanceCharge + this.bookingFee;
-          return totalCost.toFixed(2);
-        }
+    
+    calculatePrice(distance, time) {
+        const distanceCost = distance * this.costPerMile;
+        const timeCost = time * this.costPerMinute;
+        const totalCost = this.baseFare + distanceCost + timeCost;
+        return totalCost;
+    }
 
-        static applySurgePricing(price, surgeFactor) {
-          return (price * surgeFactor).toFixed(2);
-        }
-      }
+    
+    displayFareBreakdown(distance, time) {
+        const distanceCost = distance * this.costPerMile;
+        const timeCost = time * this.costPerMinute;
+        const totalCost = this.baseFare + distanceCost + timeCost;
+        return `Base Fare: $${this.baseFare.toFixed(2)}, Distance Cost: $${distanceCost.toFixed(2)}, Time Cost: $${timeCost.toFixed(2)}, Total Cost: $${totalCost.toFixed(2)}`;
+    }
+}
 
-      let uberRide = new UberPricing(2.0, 0.2, 1.15, 1.5); // Example fares
-      let normalPrice = uberRide.calculatePrice(30, 5); // 30 minutes and 5 miles
-      console.log(`Normal Price: $${normalPrice}`);
 
-      let surgePrice = UberPricing.applySurgePricing(
-        parseFloat(normalPrice),
-        1.5
-      );
-      console.log(`Surge Price: $${surgePrice}`);
+const baseFare = 2.50;
+const costPerMile = 1.75;
+const costPerMinute = 0.25;
+const uberPriceCalculator = new UberPriceCalculator(baseFare, costPerMile, costPerMinute);
+
+const distance = 10; // in miles
+const time = 20; // in minutes
+
+const totalCost = uberPriceCalculator.calculatePrice(distance, time);
+console.log(`Total Uber Cost: $${totalCost.toFixed(2)}`); 
+
+const fareBreakdown = uberPriceCalculator.displayFareBreakdown(distance, time);
+console.log(fareBreakdown);
+
     </script>
   </body>
 </html>
 
-//output is :
-Normal Price: $15.25
-task2.html:39 Surge Price: $22.88
+ // Output: Base Fare: $2.50, Distance Cost: $17.50, Time Cost: $5.00, Total Cost: $25.00
